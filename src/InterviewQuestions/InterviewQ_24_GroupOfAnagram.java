@@ -1,6 +1,7 @@
 package InterviewQuestions;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,6 +11,27 @@ public class InterviewQ_24_GroupOfAnagram {
 
         List<String> input = Arrays.asList("eat", "tea", "ate", "tan", "nat", "bat");
 
+
+        // Approach 1
+        Map<String, List<String>> listMap = input.stream ( )
+                .collect (Collectors.groupingBy (v -> Arrays.stream (v.split (""))
+                        .sorted ( ).collect (Collectors.joining ( ))
+                ));
+
+        System.out.println(listMap);
+
+
+        // Approach 2
+        Map<String, List<String>> listMap1 = input.stream ( )
+                .collect (Collectors.groupingBy (v -> v.chars ( )
+                        .mapToObj (obj -> String.valueOf ((char) obj))
+                        .sorted ().collect (Collectors.joining ( ))
+                        ));
+
+        System.out.println(listMap1);
+
+
+        // Approach 3
         Map<String, List<String>> map = input.stream()
                 .collect(Collectors.groupingBy(InterviewQ_24_GroupOfAnagram::sortString));
 
